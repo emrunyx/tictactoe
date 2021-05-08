@@ -1,45 +1,55 @@
 // DECLARATIONS
-
 // boolean value indicating the current player
 let player = false,
     items = document.getElementsByClassName('grid-item')
+
+
 
 // SCRIPT
 // Adds the ability to get selected to the grid-items
 for (element of items)
 {
-    element.addEventListener('click', select)
+    element.addEventListener('click', select) // makes these elements selectable
 }
-document.getElementById('customButton').addEventListener('click', refreshPage)
+// Adds the logic to the two buttons
+let refreshButton = document.getElementById('refresh'),
+    switchButton = document.getElementById('switch')
+refreshButton.addEventListener('click', refreshPage)
+setButton(refreshButton, true)
+switchButton.addEventListener('click', switchPlayer)
+setButton(switchButton, true)
+
+
 
 // FUNCTIONS
 // Selects a button by adding the color from the player whose turn it is
 function select(event)
 {
     // if not selected yet
-    let li = event.target.classList;
-    console.log(li)
-    console.log(li.toString())
+    let li = event.target.classList
     if (!li.toString().includes('player'))
     {
         color = nextColor() // player switched
         li.add(color) // grid-item occupied
-        li.remove('selectable') // 
+        li.remove('selectable') // disable the hover animation indicating the item is not occupied
     }
+    // as long as the game is running, the player shall not be switched
+    setButton(document.getElementById('switch'), false)
 }
+
 // emulating a turn: switching the player and returning the requested color
 function nextColor()
 {
-    let temp = player
     player = !player // new player
     return player ? 'playerOne' : 'playerTwo'
 }
+
 // removes the colors from the grid-items
 function refreshPage()
 {
     for (element of items)
     {
-        let li = element.classList;
+        let li = element.classList
         if (!li.toString().includes('selectable'))
         {
             li.add('selectable')
@@ -54,5 +64,30 @@ function refreshPage()
             }
         }
     }
-    
+    setButton(document.getElementById('switch'), true)
+}
+
+// toggles the player who's turn it is
+function switchPlayer()
+{
+    // if enabled
+    if (!(document.getElementById('switch').classList.toString().includes('disabled')))
+    {
+        player = !player
+    }
+}
+
+// En- or disables the switch player button
+function setButton(button, able)
+{
+    if (able) // enable
+    {
+        if (!button.classList.toString().includes('eabled'))
+            button.classList.add('enabled')
+    }
+    else // disable
+    {
+        if (button.classList.toString().includes('enabled'))
+            button.classList.remove('enabled')
+    }
 }
