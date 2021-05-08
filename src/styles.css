@@ -1,17 +1,26 @@
+:root
+{
+    --default-threshold: min(2vw, 2vh);
+}
+
 .container
 {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
+
 .grid
 {
-    height: 80vh;
-    width: 80vh;
+    height: min(70vh, 70vw);
+    width: min(70vh, 70vw);
     display: grid;
     /* Repeat is a convenient way of not having to write things many times */
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
+    
 }
+
 .grid-item
 {
     margin: 0.5em;
@@ -19,9 +28,42 @@
     display: flex;  
     justify-content: center;
     align-items: center;
-    transition: 0.5s ease;
+    transition: 0.4s ease;
 }
-    .grid-item:hover
+.selectable
+{
+    transition: 0.4s ease;
+}
+    .selectable:hover
     {
         background: rgba(0, 0, 0, 0.254);
+    }
+
+    .playerOne
+    {
+        background: #68d89b;
+        border-radius: 1em;
+        
+    }
+
+    .playerTwo
+    {
+        background: #1d3557;
+        border-radius: 1em;
+    }
+
+#customButton
+{
+    margin: var(--default-threshold);
+    border: clamp(1px, 1px, 5px) solid black;
+    padding: var(--default-threshold);
+    border-radius: 1em 0 1em 0;
+    transition: 0.25s ease;
+    font-family: fantasy;
+    font-size: 1.5em;
+
+}
+    #customButton:hover
+    {
+        background: #94a7c452;
     }
