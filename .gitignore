@@ -1,1 +1,2 @@
-
+# Excludes all the dev.md files (only uncomment on the clean branch)
+# ../dev.md
