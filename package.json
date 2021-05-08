@@ -1,0 +1,19 @@
+{
+  "name": "tictactoe",
+  "version": "1.0.0",
+  "description": "A tictactoe web app I create as a training using only plain HTML, CSS and JS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "testtactoe"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emrunyx/tictactoe.git#main"
+  },
+  "author": "emrunyx",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/emrunyx/tictactoe/issues"
+  },
+  "homepage": "https://github.com/emrunyx/tictactoe/tree/main#readme"
+}
