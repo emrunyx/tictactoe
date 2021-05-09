@@ -45,8 +45,8 @@ h1
 /* The score label paragraph at the top*/
 p
 {
-    margin: var(--default-threshold);
-    font-size: 2em;
+    margin: calc(0.5 *var(--default-threshold));
+    font-size: 3em;
     padding: 0;
 }
 
@@ -177,13 +177,13 @@ p
 /* Look of a button at the top of the page */
 .gameLogicButton
 {
-    width: 6.5em;
+    width: 5em;
     background: var(--globalgrey);
     margin: var(--default-threshold);
     border: clamp(1px, 1px, 5px) solid black;
     padding: var(--default-threshold);
     border-radius: 0.75em 0 0.75em 0;
-    font-size: 1.5em;
+    font-size: 1em;
     text-align: center;
     opacity: 0.5;
     transition: 0.5s ease;
