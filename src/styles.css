@@ -1,18 +1,23 @@
 /* Global variables and widely spreaded settings */
+
 :root
 {
     --default-threshold: min(2vw, 2vh);
     --default-width: min(50vw, 50vh);
+    --little-block-size: min(4vh, 4vw);
+    --big-block-size: min(6vh, 6vw);
     --whiteish: #e4e4e4;
     --globalgrey: #171d2b;
     --playerOneColor: #3fd683;
     --playerTwoColor: #1769db;
 }
+
 *
 {
     font-family: fantasy;
     color: var(--whiteish);
 }
+
 body
 {
     height: 100vh;
@@ -22,6 +27,7 @@ body
 
 
 /* top level container keeping anything*/
+
 .container
 {
     display: flex;
@@ -29,18 +35,22 @@ body
     flex-direction: column;
 }
 
+
 /* Heading, the two phrases, the player-bar*/
+
 h1
 {
     font-size: 3em;
     margin-top: calc(2.5 *var(--default-threshold));
 }
+
 p
 {
     margin: var(--default-threshold);
     font-size: 1.2em;
     padding: 0;
 }
+
 .player-bar
 {
     position: relative;
@@ -50,28 +60,54 @@ p
     justify-content: center;
     margin: var(--default-threshold);
 }
+
 .block
 {
-    --square-size: min(6vw, 6vh);
     margin: 2.5em;
-    width: var(--square-size);
-    height: var(--square-size);
     position: absolute;
     border-radius: 50%;
     border: 1px solid black; 
+    transition: opacity 0.6s, height 0.6s, width 0.6s;
 }
-#blockone
+
+.blockOne
 {
+    width: var(--big-block-size);
+    height: var(--big-block-size);
+    opacity: 1;
     left: 0;
     background: var(--playerOneColor);
 }
-#blocktwo
+
+.blockTwo
 {
-    background: var(--playerTwoColor);
+    width: var(--little-block-size);
+    height: var(--little-block-size);
+    opacity: 0.25;
     right: 0;
+    background: var(--playerTwoColor);
 }
 
+
+/* Animation classes used in the player-bar */
+
+.grow
+{
+    opacity: 1;
+    width: var(--big-block-size);
+    height: var(--big-block-size);
+}
+
+.shrink
+{
+    opacity: 0.25;
+    width: var(--little-block-size);
+    height: var(--little-block-size);
+}
+
+
 /* The tic tac toe grid and its components */
+
 .grid
 {
     height: var(--default-width);
@@ -81,6 +117,7 @@ p
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
 }
+
 .grid-item
 {
     margin: 0.5em;
@@ -90,6 +127,7 @@ p
     align-items: center;
     background: var(--whiteish);
 }
+
 .selectable
 {
     transition: background 0.4s ease;
@@ -98,24 +136,28 @@ p
     {
         background: rgba(0, 0, 0, 0.25);
     }
+
 .playerOne
 {
     background: var(--playerOneColor);
     border-radius: 1em;
-    
 }
+
 .playerTwo
 {
     background: var(--playerTwoColor);
     border-radius: 1em;
 }
 
+
 /* The button bar at the very bottom */
+
 .button-bar
 {
     display: flex;
     flex-direction: row;
 }
+
 .customButton
 {
     margin: var(--default-threshold);
@@ -130,6 +172,7 @@ p
     opacity: 0.5;
     transition: 0.5s ease;
 }
+
 .enabled
 {
     transition: background 0.5s ease;

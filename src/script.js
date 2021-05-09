@@ -40,7 +40,7 @@ function select(event)
 // emulating a turn: switching the player and returning the requested color
 function nextColor()
 {
-    player = !player // new player
+    togglePlayers()
     return player ? 'playerOne' : 'playerTwo'
 }
 
@@ -73,7 +73,7 @@ function switchPlayer()
     // if enabled
     if (!(document.getElementById('switch').classList.toString().includes('disabled')))
     {
-        player = !player
+        togglePlayers()
     }
 }
 
@@ -89,5 +89,36 @@ function setButton(button, able)
     {
         if (button.classList.toString().includes('enabled'))
             button.classList.remove('enabled')
+    }
+}
+
+// Toggles between the players and updates the UI accordingly
+function togglePlayers()
+{
+    player = !player
+    let numberSpan = document.getElementById('playerNumber');
+    if (!player) // false, aka now it is player one's turn
+    {
+        numberSpan.innerHTML = 'one'
+        // block one is getting bigger...
+        let listOne = document.getElementsByClassName('blockOne')[0].classList
+        listOne.add('grow')
+        listOne.remove('shrink')
+        // ...while block two is getting tinier
+        let listTwo = document.getElementsByClassName('blockTwo')[0].classList
+        listTwo.add('shrink')
+        listTwo.remove('grow')
+    }
+    else // true, aka now it isplayer two's turn
+    {
+        numberSpan.innerHTML = 'two'
+        // block one is getting bigger...
+        let listTwo = document.getElementsByClassName('blockTwo')[0].classList
+        listTwo.add('grow')
+        listTwo.remove('shrink')
+        // ...while block two is getting tinier
+        let listOne = document.getElementsByClassName('blockOne')[0].classList
+        listOne.add('shrink')
+        listOne.remove('grow')
     }
 }
