@@ -130,6 +130,8 @@ p
     margin: 0.5em;
     border: 1px solid black;
     background: var(--whiteish);
+    border-radius: 0em;
+    transition: background 0.6s ease, border-radius 0.4s ease;
 }
 
 /* Added as an indicator for selectability and to show the selectability by hovering*/
