@@ -27,7 +27,6 @@ body
 
 
 /* top level container keeping anything*/
-
 .container
 {
     display: flex;
@@ -36,61 +35,66 @@ body
 }
 
 
-/* Heading, the two phrases, the player-bar*/
-
+/* Heading at the top */
 h1
 {
     font-size: 3em;
     margin-top: calc(2.5 *var(--default-threshold));
 }
 
+/* The score label paragraph at the top*/
 p
 {
     margin: var(--default-threshold);
-    font-size: 1.2em;
+    font-size: 2em;
     padding: 0;
 }
 
+/* Top level container of the two blocks */
 .player-bar
 {
-    position: relative;
     width: var(--default-width);
+    margin: var(--default-threshold);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: var(--default-threshold);
+    position: relative;
 }
 
+/* Base for a block*/
 .block
 {
     margin: 2.5em;
+    border: 1px solid black; 
     position: absolute;
     border-radius: 50%;
-    border: 1px solid black; 
     transition: opacity 0.6s, height 0.6s, width 0.6s;
 }
 
+/* default properties of the left block*/
 .blockOne
 {
     width: var(--big-block-size);
     height: var(--big-block-size);
-    opacity: 1;
-    left: 0;
     background: var(--playerOneColor);
+    left: 0;
+    opacity: 1;
 }
 
+/* default properties of the right block*/
 .blockTwo
 {
     width: var(--little-block-size);
     height: var(--little-block-size);
-    opacity: 0.25;
-    right: 0;
     background: var(--playerTwoColor);
+    right: 0;
+    opacity: 0.25;
 }
 
 
 /* Animation classes used in the player-bar */
 
+/* Lets a block grow and become not opaque at all */
 .grow
 {
     opacity: 1;
@@ -98,6 +102,7 @@ p
     height: var(--big-block-size);
 }
 
+/* Lets a block shrink and become opaquish */
 .shrink
 {
     opacity: 0.25;
@@ -108,6 +113,7 @@ p
 
 /* The tic tac toe grid and its components */
 
+/* Top-level container that applies the grid layout and width/height settings*/
 .grid
 {
     height: var(--default-width);
@@ -118,16 +124,15 @@ p
     grid-template-rows: repeat(3, 1fr);
 }
 
+/* The look of a plain grid-item*/
 .grid-item
 {
     margin: 0.5em;
-    border: 1px solid black; 
-    display: flex;  
-    justify-content: center;
-    align-items: center;
+    border: 1px solid black;
     background: var(--whiteish);
 }
 
+/* Added as an indicator for selectability and to show the selectability by hovering*/
 .selectable
 {
     transition: background 0.4s ease;
@@ -137,12 +142,20 @@ p
         background: rgba(0, 0, 0, 0.25);
     }
 
+/* Added to show a block is not selectable nor occupied*/
+.blocked
+{
+    opacity: 0.4;
+}
+
+/* Indicates the block is occupied by Player One*/
 .playerOne
 {
     background: var(--playerOneColor);
     border-radius: 1em;
 }
 
+/* Indicates the block is occupied by Player Two*/
 .playerTwo
 {
     background: var(--playerTwoColor);
@@ -152,27 +165,29 @@ p
 
 /* The button bar at the very bottom */
 
+/* Top-level container of the button bar: just row-flex */
 .button-bar
 {
     display: flex;
     flex-direction: row;
 }
 
-.customButton
+/* Look of a button at the top of the page */
+.gameLogicButton
 {
+    width: 6.5em;
+    background: var(--globalgrey);
     margin: var(--default-threshold);
     border: clamp(1px, 1px, 5px) solid black;
     padding: var(--default-threshold);
     border-radius: 0.75em 0 0.75em 0;
-    background: var(--globalgrey);
-    transition: 0.25s ease;
     font-size: 1.5em;
     text-align: center;
-    width: 6.5em;
     opacity: 0.5;
     transition: 0.5s ease;
 }
 
+/* Added or remove to en- or disable a button (also an indicator for JS) */
 .enabled
 {
     transition: background 0.5s ease;

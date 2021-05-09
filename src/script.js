@@ -1,13 +1,16 @@
 // DECLARATIONS
-// boolean value indicating the current player
-let player = false,
-    items = document.getElementsByClassName('grid-item')
+/*
+ * boolean value indicating the current player:
+ * false <=> Player One
+ * true <=> Player Two
+ */
+let player = false;
 
 
 
 // SCRIPT
 // Adds the ability to get selected to the grid-items
-for (element of items)
+for (element of document.getElementsByClassName('grid-item'))
 {
     element.addEventListener('click', select) // makes these elements selectable
 }
@@ -27,29 +30,34 @@ function select(event)
 {
     // if not selected yet
     let li = event.target.classList
-    if (!li.toString().includes('player'))
+    if (li.toString().includes('selectable'))
     {
-        color = nextColor() // player switched
-        li.add(color) // grid-item occupied
-        li.remove('selectable') // disable the hover animation indicating the item is not occupied
+        color = (player ? 'playerOne' : 'playerTwo') // getting the color
+        li.add(color) // grid-item occupied by the player
+        li.remove('selectable') // disable the hover animation
+        togglePlayers()
+        // as long as the round is on, the player may not be switched
+        setButton(document.getElementById('switch'), false)
+        // check if a player has won
+        hasWon()
     }
-    // as long as the game is running, the player shall not be switched
-    setButton(document.getElementById('switch'), false)
-}
-
-// emulating a turn: switching the player and returning the requested color
-function nextColor()
-{
-    togglePlayers()
-    return player ? 'playerOne' : 'playerTwo'
 }
 
 // removes the colors from the grid-items
 function refreshPage()
 {
-    for (element of items)
+    // go through all elements
+    for (element of document.getElementsByClassName('grid-item'))
     {
         let li = element.classList
+
+        // remove blocked
+        if (li.toString().includes('blocked'))
+        {
+            li.remove('blocked')
+        }
+
+        // recreate selectability
         if (!li.toString().includes('selectable'))
         {
             li.add('selectable')
@@ -64,6 +72,8 @@ function refreshPage()
             }
         }
     }
+
+    // players are allowed to switch before the next round
     setButton(document.getElementById('switch'), true)
 }
 
@@ -77,7 +87,7 @@ function switchPlayer()
     }
 }
 
-// En- or disables the switch player button
+// en- or disables the switch player button
 function setButton(button, able)
 {
     if (able) // enable
@@ -95,30 +105,116 @@ function setButton(button, able)
 // Toggles between the players and updates the UI accordingly
 function togglePlayers()
 {
+    // 1) Toggle the model
     player = !player
-    let numberSpan = document.getElementById('playerNumber');
-    if (!player) // false, aka now it is player one's turn
+    // 2) Toggle the view
+    // the new block is getting bigger...
+    let listOne = document.getElementsByClassName(player ? 'blockOne' : 'blockTwo')[0].classList
+    listOne.add('grow')
+    listOne.remove('shrink')
+    // ...while the old block is getting tinier
+    let listTwo = document.getElementsByClassName(player ? 'blockTwo' : 'blockOne')[0].classList
+    listTwo.add('shrink')
+    listTwo.remove('grow')
+}
+
+// Checks if a player has won and triggers the winning routine if necessary
+function hasWon()
+{
+    // get all grid-items
+    const gridItems = document.getElementsByClassName('grid-item')
+
+    // check for the rows
+    for (let i = 0; i < 7; i += 3)
     {
-        numberSpan.innerHTML = 'one'
-        // block one is getting bigger...
-        let listOne = document.getElementsByClassName('blockOne')[0].classList
-        listOne.add('grow')
-        listOne.remove('shrink')
-        // ...while block two is getting tinier
-        let listTwo = document.getElementsByClassName('blockTwo')[0].classList
-        listTwo.add('shrink')
-        listTwo.remove('grow')
+        if (gridItems[i].classList.toString().includes('playerOne') &&
+            gridItems[i + 1].classList.toString().includes('playerOne') &&
+            gridItems[i + 2].classList.toString().includes('playerOne'))
+        {
+            winningRoutine(false, [i, i + 1, i + 2])
+            return;
+        }
+        else if (gridItems[i].classList.toString().includes('playerTwo') &&
+            gridItems[i + 1].classList.toString().includes('playerTwo') &&
+            gridItems[i + 2].classList.toString().includes('playerTwo'))
+        {
+            winningRoutine(true, [i, i + 1, i + 2])
+            return;
+        }
     }
-    else // true, aka now it isplayer two's turn
+
+    // check for the columns
+    for (let i = 0; i < 3; i++)
     {
-        numberSpan.innerHTML = 'two'
-        // block one is getting bigger...
-        let listTwo = document.getElementsByClassName('blockTwo')[0].classList
-        listTwo.add('grow')
-        listTwo.remove('shrink')
-        // ...while block two is getting tinier
-        let listOne = document.getElementsByClassName('blockOne')[0].classList
-        listOne.add('shrink')
-        listOne.remove('grow')
+        if (gridItems[i].classList.toString().includes('playerOne') &&
+            gridItems[i + 3].classList.toString().includes('playerOne') &&
+            gridItems[i + 6].classList.toString().includes('playerOne'))
+        {
+            winningRoutine(false, [i, i + 3, i + 6])
+            return;
+        }
+        else if (gridItems[i].classList.toString().includes('playerTwo') &&
+            gridItems[i + 3].classList.toString().includes('playerTwo') &&
+            gridItems[i + 6].classList.toString().includes('playerTwo'))
+        {
+            winningRoutine(true, [i, i + 3, i + 6])
+            return;
+        }
+    }
+
+    // first diagonal
+    if (gridItems[0].classList.toString().includes('playerOne') &&
+        gridItems[4].classList.toString().includes('playerOne') &&
+        gridItems[8].classList.toString().includes('playerOne'))
+    {
+        winningRoutine(false, [0, 4, 8])
+        return;
+    }
+    else if (gridItems[0].classList.toString().includes('playerTwo') &&
+        gridItems[4].classList.toString().includes('playerTwo') &&
+        gridItems[8].classList.toString().includes('playerTwo'))
+    {
+        winningRoutine(true, [0, 4, 8])
+        return;
+    }
+    
+    // second diagonal
+    if (gridItems[2].classList.toString().includes('playerOne') &&
+        gridItems[4].classList.toString().includes('playerOne') &&
+        gridItems[6].classList.toString().includes('playerOne'))
+    {
+        winningRoutine(false, [2, 4, 6])
+        return;
+    }
+    else if (gridItems[2].classList.toString().includes('playerTwo') &&
+        gridItems[4].classList.toString().includes('playerTwo') &&
+        gridItems[6].classList.toString().includes('playerTwo'))
+    {
+        winningRoutine(true, [2, 4, 6])
+        return;
+    }
+}
+
+// Displays that the winner has won
+function winningRoutine(winner, gridItemsIndices)
+{
+    // increment the score label
+    const id = 'score' + (winner ? 'Two' : 'One') // determine the label to update
+    const scoreSpan = document.getElementById(id)
+    scoreSpan.textContent = (parseInt(scoreSpan.textContent) + 1).toString() // increment
+
+    // block all grid-items that are still selectable
+    const gridItems = document.getElementsByClassName('grid-item')
+    for (let x = 0; x < gridItems.length; x++)
+    {
+        let list = gridItems[x].classList;
+        if (list.toString().includes('selectable'))
+        {
+            list.remove('selectable')
+        }
+        if (!gridItemsIndices.includes(x))
+        {
+            list.add('blocked')
+        }
     }
 }

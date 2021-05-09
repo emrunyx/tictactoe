@@ -12,8 +12,13 @@
     </head>
     <body>
         <div class="container">
+            <!-- Top section -->
             <h1>Tic-Tac-Toe!</h1>
-            <p>You are officially challenged!</p>
+            <p class="score">
+                <span id="scoreOne">0</span> : <span id="scoreTwo">0</span>
+            </p>
+
+            <!-- Center -->
             <div class="grid">
                 <div class="grid-item selectable"></div>
                 <div class="grid-item selectable"></div>
@@ -25,14 +30,16 @@
                 <div class="grid-item selectable"></div>
                 <div class="grid-item selectable"></div>
             </div>
+
+            <!-- Bottom section -->
             <div class="player-bar">
                 <div class="block blockOne"></div>
                 <div class="block blockTwo"></div>
-                <p>Player <span id="playerNumber">one</span>!</p>
+                <p></p>
             </div>
             <div class="button-bar">
-                <div class="customButton enabled" id="switch">Switch Player</div>
-                <div class="customButton enabled" id="refresh">Refresh</div>
+                <div class="gameLogicButton enabled" id="switch">Switch Player</div>
+                <div class="gameLogicButton enabled" id="refresh">Refresh</div>
             </div>
         </div>
     </body>
