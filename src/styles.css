@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+
 /* Global variables and widely spreaded settings */
 
 :root
@@ -5,7 +7,7 @@
     --default-threshold: min(2vw, 2vh);
     --default-width: min(50vw, 50vh);
     --little-block-size: min(4vh, 4vw);
-    --big-block-size: min(6vh, 6vw);
+    --big-block-size: min(8vh, 8vw);
     --whiteish: #e4e4e4;
     --globalgrey: #171d2b;
     --playerOneColor: #3fd683;
@@ -14,7 +16,9 @@
 
 *
 {
-    font-family: fantasy;
+    margin: 0;
+    padding: 0;
+    font-family: 'Source Sans Pro', sans-serif;
     color: var(--whiteish);
 }
 
@@ -29,11 +33,11 @@ body
 /* top level container keeping anything*/
 .container
 {
+    display: -webkit-flex;
     display: flex;
     align-items: center;
     flex-direction: column;
 }
-
 
 /* Heading at the top */
 h1
@@ -54,7 +58,8 @@ p
 .player-bar
 {
     width: var(--default-width);
-    margin: var(--default-threshold);
+    margin: calc(2 * var(--default-threshold));
+    display: -webkit-flex;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -97,17 +102,17 @@ p
 /* Lets a block grow and become not opaque at all */
 .grow
 {
-    opacity: 1;
     width: var(--big-block-size);
     height: var(--big-block-size);
+    opacity: 1;
 }
 
 /* Lets a block shrink and become opaquish */
 .shrink
 {
-    opacity: 0.25;
     width: var(--little-block-size);
     height: var(--little-block-size);
+    opacity: 0.25;
 }
 
 
@@ -119,6 +124,8 @@ p
     height: var(--default-width);
     width: var(--default-width);
     margin: var(--default-threshold);
+    display:-webkit-grid;
+    display: -moz-grid;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -170,6 +177,7 @@ p
 /* Top-level container of the button bar: just row-flex */
 .button-bar
 {
+    display: -webkit-flex;
     display: flex;
     flex-direction: row;
 }
@@ -181,10 +189,10 @@ p
     height: calc(2 * var(--default-threshold));
     background: var(--globalgrey);
     margin: var(--default-threshold);
-    border: clamp(1px, 1px, 5px) solid black;
+    border: 1px solid black;
     padding: var(--default-threshold);
     border-radius: 0.75em 0 0.75em 0;
-    font-size: calc(2 * var(--default-threshold));
+    font-size: min(3vw, 2em);
     text-align: center;
     opacity: 0.5;
     transition: 0.5s ease;

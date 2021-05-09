@@ -32,7 +32,7 @@ function select(event)
     let li = event.target.classList
     if (li.toString().includes('selectable'))
     {
-        color = (player ? 'playerOne' : 'playerTwo') // getting the color
+        color = (player ? 'playerTwo' : 'playerOne') // getting the color
         li.add(color) // grid-item occupied by the player
         li.remove('selectable') // disable the hover animation
         togglePlayers()
@@ -109,11 +109,11 @@ function togglePlayers()
     player = !player
     // 2) Toggle the view
     // the new block is getting bigger...
-    let listOne = document.getElementsByClassName(player ? 'blockOne' : 'blockTwo')[0].classList
+    let listOne = document.getElementsByClassName(player ? 'blockTwo' : 'blockOne')[0].classList
     listOne.add('grow')
     listOne.remove('shrink')
     // ...while the old block is getting tinier
-    let listTwo = document.getElementsByClassName(player ? 'blockTwo' : 'blockOne')[0].classList
+    let listTwo = document.getElementsByClassName(player ? 'blockOne' : 'blockTwo')[0].classList
     listTwo.add('shrink')
     listTwo.remove('grow')
 }
