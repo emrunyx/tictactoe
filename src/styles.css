@@ -177,13 +177,14 @@ p
 /* Look of a button at the top of the page */
 .gameLogicButton
 {
-    width: 5em;
+    width: calc(10 * var(--default-threshold));
+    height: calc(2 * var(--default-threshold));
     background: var(--globalgrey);
     margin: var(--default-threshold);
     border: clamp(1px, 1px, 5px) solid black;
     padding: var(--default-threshold);
     border-radius: 0.75em 0 0.75em 0;
-    font-size: 1em;
+    font-size: 1.5em;
     text-align: center;
     opacity: 0.5;
     transition: 0.5s ease;
